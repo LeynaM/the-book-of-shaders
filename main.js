@@ -46,16 +46,15 @@ function init() {
     const resizeObserver = new ResizeObserver(onContainerResize);
     resizeObserver.observe(container);
 
-    document.onmousemove = function(e){
-      uniforms.u_mouse.value.x = e.pageX
-      uniforms.u_mouse.value.y = e.pageY
-    }
+    container.addEventListener("mousemove", (e) => {
+        uniforms.u_mouse.value.x = e.offsetX;
+        uniforms.u_mouse.value.y = e.offsetY;
+    })
 }
 
 function onContainerResize( entries ) {
     const { height, width } = entries[0].contentRect
     renderer.setSize( width, height );
-    console.log(width);
     uniforms.u_resolution.value.x = renderer.domElement.width;
     uniforms.u_resolution.value.y = renderer.domElement.height;
 }

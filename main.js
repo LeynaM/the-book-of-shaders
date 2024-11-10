@@ -12,6 +12,8 @@ animate();
 
 function init() {
     container = document.getElementById( 'container' );
+    snippet = document.getElementById( 'snippet' );
+    snippet.innerHTML = fragmentShader;
 
     camera = new THREE.Camera();
     camera.position.z = 1;
@@ -41,8 +43,8 @@ function init() {
 
     container.appendChild( renderer.domElement );
 
-    onWindowResize();
-    window.addEventListener( 'resize', onWindowResize, false );
+    const resizeObserver = new ResizeObserver(onContainerResize);
+    resizeObserver.observe(container);
 
     document.onmousemove = function(e){
       uniforms.u_mouse.value.x = e.pageX
@@ -50,8 +52,10 @@ function init() {
     }
 }
 
-function onWindowResize( event ) {
-    renderer.setSize( window.innerWidth, window.innerHeight );
+function onContainerResize( entries ) {
+    const { height, width } = entries[0].contentRect
+    renderer.setSize( width, height );
+    console.log(width);
     uniforms.u_resolution.value.x = renderer.domElement.width;
     uniforms.u_resolution.value.y = renderer.domElement.height;
 }

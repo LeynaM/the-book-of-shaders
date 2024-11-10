@@ -1,7 +1,28 @@
 body {
-    margin: 0;
+    margin: 32px;
+    background-color: #2e2a31;
+    color: white;
 }
 
 #container {
-    
+    flex-grow: 1;
+    position: relative;
 }
+
+#container canvas {
+    position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.row {
+  display: flex;
+  gap: 32px
+}
+
+#snippet {
+    background-color: #000000;
+    padding: 8px;
+    margin: 0px;
+}
+
